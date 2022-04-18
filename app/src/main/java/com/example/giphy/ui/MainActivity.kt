@@ -27,13 +27,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.activityMainBottomNavigation.setupWithNavController(navController)
+    }
 
+    override fun onResume() {
+        super.onResume()
         val song = R.raw.background_song
         mediaPlayer = MediaPlayer.create(this, song)
         mediaPlayer?.apply {
             setVolume(100f, 100f)
             isLooping = true
             start()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.also { mediaPlayer ->
+            if(mediaPlayer.isPlaying) {
+                mediaPlayer.stop()
+            }
         }
     }
 }
