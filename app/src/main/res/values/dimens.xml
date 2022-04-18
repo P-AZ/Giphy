@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  margin start  -->
+    <dimen name="extra_small_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="large_margin">24dp</dimen>
+
+    <dimen name="layout_margin">10dp</dimen>
+    <!--  margin end  -->
+
+    <!--  text start  -->
+    <dimen name="small_text_size">14sp</dimen>
+    <dimen name="medium_text_size">18sp</dimen>
+    <dimen name="large_text_size">28sp</dimen>
+    <!--  text end  -->
+
+    <!--  menu start  -->
+    <dimen name="menu_item_icon_size">30dp</dimen>
+    <dimen name="menu_item_active_text_size">15sp</dimen>
+    <dimen name="menu_item_inactive_text_size">12sp</dimen>
+    <!--  menu end  -->
+
+</resources>

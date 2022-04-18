@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navgraph_fragment_home">
+
+    <fragment
+        android:id="@+id/navgraph_fragment_home"
+        android:name="com.example.giphy.ui.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/navgraph_action_fragment_home_to_fragment_single_gif"
+            app:destination="@id/navgraph_fragment_single_gif">
+
+            <argument
+                android:name="gifArg"
+                app:argType="com.example.giphy.model.Gif"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navgraph_fragment_favorites"
+        android:name="com.example.giphy.ui.fragments.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/navgraph_action_fragment_favorites_to_fragment_single_gif"
+            app:destination="@+id/navgraph_fragment_single_gif">
+
+            <argument
+                android:name="gifArg"
+                app:argType="com.example.giphy.model.Gif"
+                app:nullable="true"
+                android:defaultValue="@null"/>
+
+        </action>
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/navgraph_fragment_single_gif"
+        android:name="com.example.giphy.ui.fragments.SingleGifFragment"
+        android:label="fragment_single_gif"
+        tools:layout="@layout/fragment_single_gif">
+
+        <argument
+            android:name="gifArg"
+            app:argType="com.example.giphy.model.Gif"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+    </dialog>
+
+
+
+</navigation>
