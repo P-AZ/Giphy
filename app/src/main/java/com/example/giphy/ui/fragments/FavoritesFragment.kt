@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.giphy.databinding.FragmentFavoritesBinding
 import com.example.giphy.model.Gif
@@ -65,7 +66,9 @@ class FavoritesFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
 
             val onGifHolderClick: (Gif) -> Unit = {
-                gifViewModel.onGifClick(it)
+                findNavController().navigate(
+                    FavoritesFragmentDirections.navgraphActionFragmentFavoritesToFragmentSingleGif(it)
+                )
             }
 
             val onFavoritesClick: (Gif) -> Unit = {

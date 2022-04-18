@@ -21,7 +21,7 @@ object Extensions {
             this[index]?.let { currentGif ->
                 when(gifAttribute) {
                     GifAttributes.IS_FAVORITE -> currentGif.isFavorite = !currentGif.isFavorite
-//                    GifAttributes.IS_EXPANDED -> currentGif.isExpended = !currentGif.isExpended
+                    GifAttributes.IS_EXPANDED -> currentGif.isExpanded = !currentGif.isExpanded
                 }
                 //creating copy of list due to Diffutill not notice the different
                 val tempTokensList = mutableListOf<Gif>()

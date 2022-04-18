@@ -15,7 +15,7 @@ class GifRepo @Inject constructor(
 ) {
     private val API_KEY = "lITqTFLzmkGcN54lFnjqMZQOJ79Zj6c9"
 
-    //Get gifs by query search
+    //Get gifs by query search from as paging data
     fun getGifsBySearch(searchQuery: String) =
         Pager(
             pagingSourceFactory = {

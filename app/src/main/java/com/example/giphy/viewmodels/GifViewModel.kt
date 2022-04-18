@@ -12,6 +12,7 @@ import com.example.giphy.repos.GifRepo
 import com.example.giphy.utils.States
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
@@ -29,22 +30,7 @@ class GifViewModel @Inject constructor(private val gifRepo: GifRepo) : ViewModel
     val gifFavoritesListEvent = MutableLiveData<List<Gif?>?>()
     var gifPagingRegularListEvent: Flow<PagingData<Gif>> = emptyFlow()
 
-    val queryPagingEvent: MutableStateFlow<String> = MutableStateFlow("")
-
-//    var gifPagingRegularListEvent = queryPagingEvent.flatMapLatest { filter ->
-//        Pager(
-//            pagingSourceFactory = {
-//                GifPagingSource(
-//                    gifEndPoints = gifRepo.gifEndPoints,
-//                    apiKey = gifRepo.API_KEY,
-//                    searchQuery = filter
-//                )
-//            },
-//            config = PagingConfig(
-//                pageSize = 2
-//            )
-//        ).flow.cachedIn(viewModelScope)
-//    }
+    private val queryPagingEvent: MutableStateFlow<String> = MutableStateFlow("")
 
     init {
         initRoomData()
@@ -64,11 +50,12 @@ class GifViewModel @Inject constructor(private val gifRepo: GifRepo) : ViewModel
         getAllFavorites()
     }
 
+    // getGifsBySearch get all gifs from server while listening to query changes
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun getGifsBySearch() {
         gifPagingRegularListEvent = queryPagingEvent.flatMapLatest { query ->
             gifRepo.getGifsBySearch(query).cachedIn(viewModelScope)
         }
-//        gifPagingRegularListEvent = gifRepo.getGifsBySearch(searchQuery).cachedIn(viewModelScope)
     }
 
     fun updateQueryPaging(query: String) {
@@ -87,6 +74,7 @@ class GifViewModel @Inject constructor(private val gifRepo: GifRepo) : ViewModel
         }
     }
 
+    // getFavoriteGifsBySearch get gifs from favorites by query search
     fun getFavoriteGifsBySearch(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             state.postValue(States.Loading)
@@ -115,14 +103,6 @@ class GifViewModel @Inject constructor(private val gifRepo: GifRepo) : ViewModel
             gifRepo.deleteGifFromFavorites(gif)
             state.postValue(States.Idle)
         }
-    }
-
-    //onTokenClick responsible to update gifRegularList or db according to which fragment it been press from
-    fun onGifClick(gif: Gif) {
-//        gifRegularListEvent.postValue(gifRegularList.updateList(gif, GifAttributes.IS_FAVORITE))
-//        val tempGif = gif.copy()
-//        insertOrUpdateGifToFavorites(tempGif)
-
     }
 
     fun onFavoriteClick(gif: Gif) {

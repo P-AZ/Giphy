@@ -4,8 +4,6 @@ import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.giphy.db.Converters
 import kotlinx.parcelize.Parcelize
 
 //Using interface for scalability
@@ -31,7 +29,8 @@ data class Gif (
     override val rating: String?,
     @Embedded override val images: Images?,
     override val slug: String?,
-    var isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var isExpanded: Boolean = false
 ) : IGif, Parcelable
 
 @Parcelize

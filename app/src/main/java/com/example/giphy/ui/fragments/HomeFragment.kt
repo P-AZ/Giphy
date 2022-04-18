@@ -13,7 +13,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.giphy.databinding.FragmentHomeBinding
 import com.example.giphy.model.Gif
-import com.example.giphy.ui.adapters.GifAdapter
+import com.example.giphy.ui.adapters.GifPagingAdapter
 import com.example.giphy.utils.Const.SEARCH_GIF_TIME_DELAY
 import com.example.giphy.utils.States
 import com.example.giphy.viewmodels.GifViewModel
@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
                 gifViewModel.onFavoriteClick(it)
             }
 
-            adapter = GifAdapter(onGifHolderClick, onFavoritesClick)
+            adapter = GifPagingAdapter(onGifHolderClick, onFavoritesClick)
         }
     }
 
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
     private fun initGifRegularListObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             gifViewModel.gifPagingRegularListEvent.collectLatest { pagingData ->
-                (binding.fragmentHomeGifVerticalRv.adapter as GifAdapter).submitData(pagingData)
+                (binding.fragmentHomeGifVerticalRv.adapter as GifPagingAdapter).submitData(pagingData)
             }
         }
     }
@@ -115,10 +115,8 @@ class HomeFragment : Fragment() {
                 editable?.let {
                     if(editable.toString().isNotEmpty()) {
                         gifViewModel.updateQueryPaging(editable.toString())
-//                        gifViewModel.getGifsBySearch(editable.toString())
                     } else {
                         gifViewModel.updateQueryPaging("null")
-//                        gifViewModel.getGifsBySearch()
                     }
                 }
             }
@@ -127,7 +125,7 @@ class HomeFragment : Fragment() {
 
     private fun initPagingAdapterStatesObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            (binding.fragmentHomeGifVerticalRv.adapter as GifAdapter).loadStateFlow.collectLatest { loadStates ->
+            (binding.fragmentHomeGifVerticalRv.adapter as GifPagingAdapter).loadStateFlow.collectLatest { loadStates ->
                 binding.fragmentHomePb.visibility =
                     if(loadStates.refresh is LoadState.Loading) View.VISIBLE
                     else View.GONE

@@ -2,23 +2,19 @@ package com.example.giphy.ui.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.giphy.R
 import com.example.giphy.databinding.HolderGifBinding
 import com.example.giphy.model.Gif
-import kotlinx.coroutines.flow.collect
 
-class GifAdapter(
+class GifPagingAdapter(
     private val onGifClick: (Gif) -> Unit,
     private val onFavoriteClick: (Gif) -> Unit
-) : PagingDataAdapter<Gif, GifAdapter.GifViewHolder>(GifDiffCallback) {
+) : PagingDataAdapter<Gif, GifPagingAdapter.GifViewHolder>(GifDiffCallback) {
 
     class GifViewHolder(
         private val holderViewBinding: HolderGifBinding,
